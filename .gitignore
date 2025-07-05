@@ -1,0 +1,16 @@
+# Ignore node modules from both client and server
+client/node_modules/
+server/node_modules/
+
+# Ignore environment files
+client/.env
+server/.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# Build output (optional)
+client/build/
