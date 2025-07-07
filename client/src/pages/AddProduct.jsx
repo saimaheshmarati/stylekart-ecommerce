@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function AddProduct() {
   const [formData, setFormData] = useState({
     name: "",
@@ -25,11 +27,10 @@ function AddProduct() {
     e.preventDefault();
     setMessage("");
 
-    // Convert size string to array, e.g. "S,M,L" => ["S","M","L"]
     const sizesArray = formData.size.split(",").map((s) => s.trim());
 
     try {
-      const res = await fetch("http://localhost:8080/api/products/add", {
+      const res = await fetch(`${BASE_URL}/api/products/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,13 +64,7 @@ function AddProduct() {
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow rounded mt-10">
       <h2 className="text-2xl font-bold mb-4 text-center">Add Product</h2>
-
-      {message && (
-        <div className="mb-4 text-center text-sm font-medium text-blue-600">
-          {message}
-        </div>
-      )}
-
+      {message && <div className="mb-4 text-center text-sm font-medium text-blue-600">{message}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         {[
           { label: "Name", name: "name", type: "text" },
@@ -95,7 +90,6 @@ function AddProduct() {
             />
           </div>
         ))}
-
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"

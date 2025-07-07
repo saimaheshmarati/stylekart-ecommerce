@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function BuyProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -9,7 +11,7 @@ function BuyProduct() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/products/${id}`)
+    fetch(`${BASE_URL}/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch((err) => {
@@ -30,7 +32,6 @@ function BuyProduct() {
       return;
     }
 
-    // ✅ Redirect to success page
     navigate("/success");
   };
 

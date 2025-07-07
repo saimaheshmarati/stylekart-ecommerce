@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 function EditProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,9 +19,8 @@ function EditProduct() {
 
   const [error, setError] = useState("");
 
-  // ✅ Prefill product data
   useEffect(() => {
-    fetch(`http://localhost:8080/api/products/${id}`)
+    fetch(`${BASE_URL}/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFormData({
@@ -46,7 +47,7 @@ function EditProduct() {
     setError("");
 
     try {
-      const res = await fetch(`http://localhost:8080/api/products/${id}`, {
+      const res = await fetch(`${BASE_URL}/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

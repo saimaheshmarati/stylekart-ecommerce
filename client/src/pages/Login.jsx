@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -22,7 +23,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/login", {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ function Login() {
       login(data); // ✅ Save token + user to context/localStorage
       navigate("/dashboard"); // ✅ Redirect to dashboard
     } catch (err) {
-      console.error("Login Error:", err); // Helpful in DevTools console
+      console.error("Login Error:", err);
       setError("Something went wrong. Please try again.");
     }
   };

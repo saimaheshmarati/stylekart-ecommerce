@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
+import React, { useState, useEffect } from "react";
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -9,7 +10,7 @@ function Products() {
     // Fetch all products from the API
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/products");
+        const res = await fetch(`${BASE_URL}/api/products`);
         const data = await res.json();
 
         if (!res.ok) {

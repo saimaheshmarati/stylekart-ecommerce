@@ -1,20 +1,18 @@
-// src/pages/ProductList.jsx
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import toast from "react-hot-toast";
 
-function ProductList() {
-  console.log("🔍 ProductList mounted");
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+function ProductList() {
   const [products, setProducts] = useState([]);
   const { user } = useContext(AuthContext);
   const { addToCart } = useCart();
-  console.log("🛒 Cart Context Loaded", addToCart);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/products")
+    fetch(`${BASE_URL}/api/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Failed to fetch products", err));
@@ -25,7 +23,7 @@ function ProductList() {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/products/${productId}`, {
+      const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
         method: "DELETE",
       });
 
